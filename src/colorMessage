@@ -1,0 +1,16 @@
+#
+# Colored message
+#
+#   Show a colored message
+#
+#   params:
+#     1: l_color - Required ANSI color (see http://www.csc.uvic.ca/~sae/seng265/fall04/tips/s265s047-tips/bash-using-colors.html)
+#     2: l_msg - Message to print
+#
+function color_msg() {
+  local l_color="$1"
+  local l_msg="$2"
+  local endColor='\e[0m'
+
+  echo -e "${l_color}$l_msg${endColor}"
+}
