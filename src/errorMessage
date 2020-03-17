@@ -1,0 +1,15 @@
+#
+# Error
+#
+#   Show an error and quit with exit code 1
+#
+#   params:
+#     1: l_msg - Error message to print
+error() {
+  local l_msg="$1"
+  local red='\e[0;31m'
+
+  color_msg "$red" "Error: $l_msg" 1>&2
+  exit 1
+}
+
