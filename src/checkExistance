@@ -1,0 +1,16 @@
+#
+# Existance checker
+#
+#   Check if a variable has been initialized and popolated
+#
+#   params:
+#     1: l_check - Variable to check
+#     2: l_msg - Error message to print
+function controllaOggettoSeValorizzato() {
+  local l_check="$1"
+  local l_msg="$2"
+
+  if [ -z "$l_check" ]; then
+    error "$l_msg"
+  fi
+}
