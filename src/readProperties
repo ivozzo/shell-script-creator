@@ -1,0 +1,12 @@
+#
+# readProperties
+#
+#   Read properties file and save variables
+#
+#   params:
+#     1: l_file - Properties file to read
+readProperties() {
+    local l_file="$1"
+
+    variable=$(egrep '^variable' $l_file | cut -d'=' -f2)
+}
