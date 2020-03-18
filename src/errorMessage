@@ -5,6 +5,7 @@
 #
 #   params:
 #     1: l_msg - Error message to print
+#
 error() {
   local l_msg="$1"
   local red='\e[0;31m'
