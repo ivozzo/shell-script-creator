@@ -6,7 +6,7 @@
 #   params:
 #     1: l_file - Properties file to read
 #
-readProperties() {
+function readProperties() {
     local l_file="$1"
 
     variable=$(egrep '^variable' $l_file | cut -d'=' -f2)

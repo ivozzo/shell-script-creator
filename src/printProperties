@@ -3,6 +3,6 @@
 #
 #   Print properties and / or variables
 #
-printProperties() {
+function printProperties() {
   echo '################# PROPERTIES #################'
 }

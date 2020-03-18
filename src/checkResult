@@ -4,12 +4,14 @@
 #   Check result, if an error code is detected then print a message and exit
 #
 #   params:
+#     1: l_status - Exit status code
 #     1: l_msg - Error message to print
 #
-function controllaEsito() {
-  local l_msg="$1"
+function checkResult() {
+  local l_status="$1"
+  local l_msg="$2"
 
-  if [ $? != 0 ]; then
+  if [ $status != 0 ]; then
     error "$l_msg"
   fi
 }
