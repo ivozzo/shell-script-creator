@@ -5,6 +5,7 @@
 #
 #   params:
 #     1: l_file - Properties file to read
+#
 readProperties() {
     local l_file="$1"
 

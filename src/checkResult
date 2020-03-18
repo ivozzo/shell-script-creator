@@ -5,6 +5,7 @@
 #
 #   params:
 #     1: l_msg - Error message to print
+#
 function controllaEsito() {
   local l_msg="$1"
 
