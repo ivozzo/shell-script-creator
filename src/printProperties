@@ -1,0 +1,8 @@
+#
+# printProperties
+#
+#   Print properties and / or variables
+#
+printProperties() {
+  echo '################# PROPERTIES #################'
+}
