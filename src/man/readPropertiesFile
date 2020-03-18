@@ -1,0 +1,16 @@
+This functionality allows the script to read properties from a file.
+The properties file has to be formatted using Sections as follows:
+
+#Example
+[SectionA]
+varA=valueOfVariableASectionA
+varB=valueOfVariableBSectionA
+
+[SectionB]
+varA=valueOfVariableASectionB
+varB=valueOfVariableBSectionB
+
+The properties will be declared dinamically inside your script and named according to this template: SectionName_VariableName
+
+I.E.
+SectionA_varA

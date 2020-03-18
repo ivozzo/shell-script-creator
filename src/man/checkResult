@@ -1,0 +1,5 @@
+This functionality add a function in the script for checking the return code of a command and will print an error message if the return code is different from 0
+
+I.E.
+ls -alh /tmp
+checkResult $? "This is not gonna end well..."
