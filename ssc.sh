@@ -1,6 +1,8 @@
 #!/bin/bash
 
 scriptPrefix="ssc"
+scriptSources="src"
+dryRun=False
 declare -A properties=()
 
 #
@@ -48,8 +50,9 @@ printProperties() {
 
         name=$(echo "$property" | cut -d '_' -f3)
         value=${!property}
+
         if echo "$property" | grep -E "^.*Parameters.*$" >/dev/null; then
-            echo "## PARAMETER $name ##"
+            echo "### PARAMETER $name ###"
             echo "Default value: $(echo "$value" | cut -d ';' -f1)"
             echo "Mandatory: $(echo "$value" | cut -d ';' -f2 | sed -e "s/0/False/g" -e "s/1/True/g")"
             echo "Shortcut: -$(echo "$value" | cut -d ';' -f3)"
@@ -57,6 +60,12 @@ printProperties() {
             echo ""
         elif echo "$property" | grep -E "^.*Variables.*$" >/dev/null; then
             echo "$name"="$value"
+        elif echo "$property" | grep -E "^.*Functionalities.*$" >/dev/null; then
+            if [ "$value" == 1 ]; then
+                echo "### FUNCTIONALITY $name ###"
+                cat "$scriptSources/man/$name"
+                echo ""
+            fi
         fi
     done
 }
