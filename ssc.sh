@@ -2,8 +2,14 @@
 
 scriptPrefix="ssc"
 scriptSources="src"
+scriptProperties=""
 dryRun=False
 declare -A properties=()
+
+# Colors
+blue='\e[0;34m'
+white='\e[1;37m'
+green='\e[0;32m'
 
 #
 # Colored message
@@ -36,6 +42,24 @@ error() {
 
     color_msg "$red" "Error: $l_msg" 1>&2
     exit 1
+}
+
+#
+# Existance checker
+#
+#   Check if a variable has been initialized and popolated
+#
+#   params:
+#     1: l_check - Variable to check
+#     2: l_msg - Error message to print
+#
+function checkExistance() {
+    local l_check="$1"
+    local l_msg="$2"
+
+    if [ -z "$l_check" ]; then
+        error "$l_msg"
+    fi
 }
 
 #
@@ -101,5 +125,55 @@ readProperties() {
     done <"$l_file"
 }
 
-readProperties "$1"
-printProperties
+#
+# Usage
+#
+#   Show script help
+#
+function usage() {
+    echo ""
+    color_msg "$green" "ONE SCRIPT TO RULE THEM ALL."
+    color_msg "$white" "A shell script for creating other shell scripts with a lot of boilerplate code"
+    echo ""
+    color_msg "$blue" "OPTIONS:"
+    echo '-h|--help' 'Show this help' | usagePrettyPrinter
+    echo '-p|--properties' 'The properties file to process' | usagePrettyPrinter
+    echo '-d|--dry-run' 'Flag this if you just want to print the process log and do not create your script, useful for testing purpose' | usagePrettyPrinter
+    echo ""
+    exit 0
+}
+ 
+#
+# usagePrettyPrinter
+#
+#   Specific function for pretty printing usage output format
+#
+function usagePrettyPrinter() {
+    awk '{printf "    %-20s", $1; for (i=2; i<=NF; i++) printf $i " "; printf "\n"}'
+}
+
+#
+# Arguments checks
+#
+while test $# -gt 0; do
+    case $1 in
+    -h | --help)
+        usage
+        ;;
+
+    -p | --properties)
+        scriptProperties=$2
+        ;;
+
+    -d | --dry-run)
+        dryRun=true
+        ;;
+
+    *)
+        params="$params $1"
+        ;;
+    esac
+    shift
+done
+
+checkExistance "$scriptProperties" "The selected properties files is missing or can't be read"
