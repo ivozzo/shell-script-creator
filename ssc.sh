@@ -3,7 +3,8 @@
 scriptPrefix="ssc"
 scriptSources="src"
 scriptProperties=""
-dryRun=False
+dryRun=false
+verboseOutput=false
 declare -A properties=()
 
 # Colors
@@ -108,7 +109,6 @@ readProperties() {
     local property=""
     local value=""
     declare -i index=1
-
     while read -r line; do
 
         ## Search for sections in properties file and dynamically create variables
@@ -137,12 +137,13 @@ function usage() {
     echo ""
     color_msg "$blue" "OPTIONS:"
     echo '-h|--help' 'Show this help' | usagePrettyPrinter
-    echo '-p|--properties' 'The properties file to process' | usagePrettyPrinter
     echo '-d|--dry-run' 'Flag this if you just want to print the process log and do not create your script, useful for testing purpose' | usagePrettyPrinter
+    echo '-v|--verbose' 'Flag this if you wanna a verbose output' | usagePrettyPrinter
+    echo '-p|--properties' 'The properties file to process' | usagePrettyPrinter
     echo ""
     exit 0
 }
- 
+
 #
 # usagePrettyPrinter
 #
@@ -169,6 +170,10 @@ while test $# -gt 0; do
         dryRun=true
         ;;
 
+    -v | --verbose)
+        verboseOutput=true
+        ;;
+
     *)
         params="$params $1"
         ;;
@@ -177,3 +182,7 @@ while test $# -gt 0; do
 done
 
 checkExistance "$scriptProperties" "The selected properties files is missing or can't be read"
+readProperties "$scriptProperties"
+if [ $verboseOutput == "true" ]; then
+    printProperties
+fi
