@@ -211,6 +211,18 @@ function addFromProperties() {
             fi
         done
         ;;
+
+    "functions")
+        for property in "${properties[@]}"; do
+            name=$(echo "$property" | cut -d '_' -f3)
+            value=${!property}
+            if echo "$property" | grep -E "^.*Functionalities.*$" >/dev/null; then
+                if [ "$value" == 1 ]; then
+                    cat < "$scriptSources/$name" >> $output
+                fi
+            fi
+        done
+        ;;
     esac
 }
 
@@ -266,7 +278,13 @@ addFromProperties "variables"
 addBanner "parameters"
 addFromProperties "parameters"
 
+addBanner "functions"
 ## Base functionalitie
-color_msg "$white" "Adding base functionalities onto the target script\n"
+color_msg "$white" "Adding base functionalities onto the target script"
 color_msg "$white" "Adding error message functionality"
 addFunctionality "errorMessage"
+
+color_msg "$white" "Adding color message log functionality"
+addFunctionality "colorMessage"
+
+addFromProperties "functions"

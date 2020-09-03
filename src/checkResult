@@ -12,7 +12,7 @@ function checkResult() {
   local l_status="$1"
   local l_msg="$2"
 
-  if [ $status != 0 ]; then
+  if [ $l_status != 0 ]; then
     error "$l_msg"
   fi
 }
